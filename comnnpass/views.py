@@ -129,7 +129,6 @@ class ConnpassAPI:
         if df.empty:
             return 0
         else:
-            print(df[0:1]['results_available'][0])
             return df[0:1]['results_available'][0]
 
     '''
@@ -140,7 +139,6 @@ class ConnpassAPI:
         available = self.resultsNum()
         eventInfo = pd.DataFrame()
         iterate = math.ceil(available/100)
-        print(iterate)
         for each in range(iterate):
             if each > 1:
                 self.payload['start'] = (iterate*100)+1
