@@ -1,0 +1,26 @@
+
+/*フォントサイズの基準は16px=1.0em*/
+
+.card{
+  height: 26.5em;
+}
+
+.card-title{
+  height: 3.85em;
+}
+
+.card-subtitle{
+  font-size:  0.9em;
+}
+
+.list-group-item{
+  font-size: 0.9em;
+}
+
+.bg-warning{
+  font-size:  1.0em;
+}
+
+.bg-info{
+  font-size:  1.0em;
+}

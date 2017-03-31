@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block result %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-deck">
+      {% for result in results %}
+
+      <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header">{{ result.date }}</div>
+        <div class="card-block">
+
+          <h6 class="card-title font-weight-bold"><a href="{{ result.URL }}" target="blank">{{ result.title }}</a></h6>
+          <h8 class="card-subtitle">By <a href="{{ result.groupUrl}}" target="blank">{{ result.groupNm }}</a></h8>
+
+          <h3 class="h5 card-text">
+            <br />
+            {% if result.limit > 0 %}
+              {{ result.accepted}}/{{ result.limit }}
+            {% else %}
+              {{ result.accepted }}
+            {% endif %}
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ result.fullRate }}%; height: 20px;" aria-valuenow="{{ result.fullRate }}" aria-valuemin="0" aria-valuemax="100" /></div>
+            </div>
+          </h5>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ result.address }}</li>
+            <li class="list-group-item">{{ result.place }}</li>
+            <li class="list-group-item">{{ result.start }} - {{ result.end }}</li>
+          </ul>
+
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock result %}

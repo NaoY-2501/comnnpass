@@ -1,0 +1,18 @@
+{%  extends 'base.html' %}
+
+{% block error %}
+{% if error %}
+<div class="row">
+  {% if error == 'dateReverse' %}
+  <div class="bg-warning text-white">
+    <strong>Warning!</strong>: 日付(from)が日付(to)より未来に設定されています
+  </div>
+  {% endif %}
+  {% if error == 'noResult' %}
+  <div class="bg-info text-white">
+    <strong>Oops!</strong>: 指定したキーワードを含むイベントが見つかりませんでした
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock error %}

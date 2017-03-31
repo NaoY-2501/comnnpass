@@ -1,0 +1,113 @@
+{% load staticfiles %}
+
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>connpassWebApp</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+  <!-- datepicker -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+
+  <script>
+  $(function(){
+    $.datepicker.setDefaults( $.datepicker.regional["ja"]);
+    $("#datepicker_From").datepicker();
+    $("#datepicker_To").datepicker();
+  });
+  </script>
+
+  <link rel="stylesheet" href="{% static 'css/myDesign.css' %}" >
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>co[m|nn]pass</h1>
+    </div>
+  </div>
+
+  <!-- 検索部分 -->
+  {% if results %}
+  {# 検索結果の1件目のみを使って,現在の検索条件を初期値として代入する #}
+  {% for result in results|slice:"1" %}
+  <div class="row">
+    <div class="col-md-12">
+      <form action="search" method="POST">{% csrf_token %}
+
+        <div class="form-inline">
+          <label>日付(from)</label>
+          <input type="text" id="datepicker_From" name="dateFrom" value="{{ result.From }}"/>
+
+          <label>日付(to)</label>
+          <input type="text" id="datepicker_To" name="dateTo" value="{{ result.To}}"/>
+
+          <label>キーワード</label>
+          <input type="text" name="keyword" value="{{ result.keyword }}"/>
+
+          <label>and</label>
+          <input type="radio" name="searchType" value="and" checked/>
+
+          <lable>or</lable>
+          <input type="radio" name="searchType" value="or" />
+
+          <button type="submit" class="btn btn-primary" name="search" value="search">検索</button>
+        </div>
+
+      </form>
+    </div>
+</div>
+  {% endfor %}
+  {% else %}
+  <div class="row">
+    <div class="col-md-12">
+      <form action="search" method="POST">{% csrf_token %}
+
+        <div class="form-inline">
+          <label>日付(from)</label>
+          <input type="text" id="datepicker_From" name="dateFrom" />
+
+          <label>日付(to)</label>
+          <input type="text" id="datepicker_To" name="dateTo" />
+
+          <label>キーワード</label>
+          <input type="text" name="keyword" />
+
+          <label>and</label>
+          <input type="radio" name="searchType" value="and" checked/>
+
+          <lable>or</lable>
+          <input type="radio" name="searchType" value="or" />
+
+          <button type="submit" class="btn btn-primary" name="search" value="search">検索</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  {% endif %}
+  <!-- 検索部分 -->
+
+  <!-- エラー部分 -->
+  {% block error %}
+  {% endblock %}
+  <!-- エラー部分 -->
+
+  <!-- 検索結果部分 -->
+  {% block result %}
+  {% endblock %}
+  <!-- 検索結果部分 -->
+
+</div>
+
+</body>
+</html>
