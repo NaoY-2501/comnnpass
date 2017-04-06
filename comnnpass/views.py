@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.views.generic.list import ListView
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from .forms import QueryForm
 from .models import Result
 import pandas as pd
 import requests
 import datetime
 import math
+import pickle
 
 # 検索ページへ遷移
 def top(request):
@@ -13,34 +14,36 @@ def top(request):
 
 # 検索処理・検索結果を返す
 def search(request):
-    if request.method == 'POST':
-        form = QueryForm(request.POST)
-        dateFrom = form['dateFrom'].value()
-        dateTo = form['dateTo'].value()
-        keyword = form['keyword'].value()
+    if len(request.POST.dict()) > 0:
+        if request.method == 'POST':
+            form = QueryForm(request.POST)
+            dateFrom = form['dateFrom'].value()
+            dateTo = form['dateTo'].value()
+            keyword = form['keyword'].value()
 
-        # 日付(from)が日付(To)より未来の場合, 結果を返さず
-        # 検索画面へ遷移する
-        if dateFrom > dateTo:
-            msg = 'dateReverse'
-            return render(request,'search.html',{'error':msg})
+            # 日付(from)が日付(To)より未来の場合, 結果を返さず
+            # 検索画面へ遷移する
+            if dateFrom > dateTo:
+                msg = 'dateReverse'
+                return render(request,'search.html',{'error':msg})
+            else:
+                # 検索対象の年月日を取得する
+                ymd = dateComplete(dateFrom,dateTo)
 
-        # 検索対象の年月日を取得する
-        ymd = dateComplete(dateFrom,dateTo)
-
-        if form['searchType'].value() == 'and':
-            payload={'ymd':ymd,'keyword':keyword,'count':'100','order':'2'}
-        else:
-            payload={'ymd':ymd,'keyword_or':keyword,'count':'100','order':'2'}
+            if form['searchType'].value() == 'and':
+                payload={'ymd':ymd,'keyword':keyword,'count':'100','order':'2'}
+            else:
+                payload={'ymd':ymd,'keyword_or':keyword,'count':'100','order':'2'}
 
         allEvents = []
+        resultList = []
         connpass = ConnpassAPI(payload)
         if connpass.resultsNum() < 1:
             msg = 'noResult'
             return render(request,'search.html',{'error':msg})
         allEvents = connpass.allEventsInfo()
 
-        results = []
+
         for idx,item in allEvents.iteritems():
             title = item['title']
             URL = item['event_url']
@@ -74,22 +77,26 @@ def search(request):
                 'groupNm':groupNm,
                 'groupUrl':groupUrl}
             result = Result(data)
-            results.append(result)
+            resultList.append(result)
 
-    # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
-    resultsReverse = results[::-1]
+        # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
+        resultsReverse = resultList[::-1]
+        with open('res.pickle',mode='wb') as f:
+            pickle.dump(resultsReverse,f)
 
-    return render(request,'results.html',{'results':resultsReverse})
 
-class resultList(ListView):
-    template_name = 'results.html'
-    paginate_by = 30
-
-    def get(self,request,results):
-        self.object_list = results
-
-        context = self.get_context_data(object_list=self.object_list)
-        return self.render_to_response(context)
+    # resRev = Results.getPickle()
+    with open('res.pickle',mode='rb') as f:
+        res = pickle.load(f)
+    paginator = Paginator(res,15)
+    page = request.GET.get('page')
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    return render(request,'results.html',{'results':results})
 
 # 入力された2つの日付の間を補完する
 def dateComplete(dateFrom,dateTo):
