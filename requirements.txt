@@ -6,3 +6,4 @@ pytz==2016.10
 requests==2.13.0
 gunicorn==19.7.1
 six==1.10.0
+whitenoise==3.3.0
