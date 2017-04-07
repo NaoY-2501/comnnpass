@@ -1,8 +1,18 @@
 
 /*フォントサイズの基準は16px=1.0em*/
 
+a.logo{
+  text-decoration: none;
+  font-family: 'Roboto';
+}
+
+a.logo:link{color: #fc433a;}
+a.logo:visited{color: #fc433a;}
+a.logo:hover{color: #fc433a;}
+a.logo:active{color: #fc433a;}
+
 .card{
-  height: 26.5em;
+  height: 27.5em;
 }
 
 .card-title{
