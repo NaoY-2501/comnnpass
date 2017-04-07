@@ -81,13 +81,9 @@ def search(request):
 
         # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
         resultsReverse = resultList[::-1]
-        with open('res.pickle',mode='wb') as f:
-            pickle.dump(resultsReverse,f)
+        request.session['results'] = resultsReverse
 
-
-    # resRev = Results.getPickle()
-    with open('res.pickle',mode='rb') as f:
-        res = pickle.load(f)
+    res = request.session['results']
     paginator = Paginator(res,15)
     page = request.GET.get('page')
     try:

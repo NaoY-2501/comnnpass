@@ -1,6 +1,7 @@
 import math
 
 class Result:
+    title = ''
     def __init__(self,result):
         self.date = result['start'][0:10]
         self.From = result['from']
