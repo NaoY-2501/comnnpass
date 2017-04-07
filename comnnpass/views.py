@@ -83,7 +83,7 @@ def search(request):
         resultsReverse = resultList[::-1]
         request.session['results'] = resultsReverse
 
-    res = request.session.get('results',None)
+    res = request.session['results']
     paginator = Paginator(res,15)
     page = request.GET.get('page')
     try:
