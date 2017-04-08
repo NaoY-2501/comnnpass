@@ -91,6 +91,8 @@ def search(request):
         request.session.modified = True
 
     try:
+        if request.session.session_key is None:
+            request.session.save()
         key = request.session.session_key
         print("session_key(in try):",key)
         res = request.session[key]
