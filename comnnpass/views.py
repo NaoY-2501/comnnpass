@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.contrib.sessions.backends.cache import SessionStore
 from .forms import QueryForm
 from .models import Result
 import pandas as pd
@@ -82,14 +83,14 @@ def search(request):
 
         # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
         resultsReverse = resultList[::-1]
-        request.session['results'] = resultsReverse
-        # request.session.setdefault('results',resultsReverse)
+        key = request.session.session_key
+        request.session[key] = resultsReverse
         request.session.modified = True
 
     try:
-        res = request.session['results']
-        request.session['results'] = res
-        request.session.modified = True
+        key = request.session.session_key
+        print(key)
+        res = request.session[key]
     except KeyError:
         tb = sys.exc_info()[2]
         print(traceback.print_tb(tb))
