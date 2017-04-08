@@ -63,6 +63,8 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 SESSION_SAVE_EVERY_REQUEST = True
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 try:
     from.local_settings import *
 except ImportError:

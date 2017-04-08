@@ -22,14 +22,14 @@ def search(request):
             dateFrom = form['dateFrom'].value()
             dateTo = form['dateTo'].value()
             keyword = form['keyword'].value()
-            # 日付(from)が日付(To)より未来の場合, 結果を返さず
-            # 検索画面へ遷移する
+            # 日付(from)が日付(To)より未来の場合はエラーメッセージを表示する
             if dateFrom > dateTo:
                 msg = 'dateReverse'
                 return render(request,'search.html',{'error':msg})
             else:
                 # 検索対象の年月日を取得する
                 ymd = dateComplete(dateFrom,dateTo)
+                # 日付形式が不正な場合はエラーメッセージを表示する
                 if type(ymd) == str:
                     return render(request,'search.html',{'error':ymd})
 
