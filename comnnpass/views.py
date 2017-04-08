@@ -16,6 +16,8 @@ def top(request):
 
 # 検索処理・検索結果を返す
 def search(request):
+    if request.session.session_key is None:
+        request.session.save()
     if len(request.POST.dict()) > 0:
         if request.method == 'POST':
             form = QueryForm(request.POST)
@@ -107,7 +109,6 @@ def search(request):
         results = paginator.page(1)
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
-    print("before return:",request.session.session_key)
     return render(request,'results.html',{'results':results})
 
 # 入力された2つの日付の間を補完する
