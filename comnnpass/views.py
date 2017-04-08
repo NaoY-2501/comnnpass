@@ -88,7 +88,7 @@ def search(request):
 
     res = request.session['results']
 
-    request.session.setdefault('results',res)
+    request.session['results'] = res
     request.session.modified = True
 
     paginator = Paginator(res,15)
