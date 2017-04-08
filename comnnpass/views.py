@@ -18,6 +18,7 @@ def top(request):
 def search(request):
     if len(request.POST.dict()) > 0:
         if request.method == 'POST':
+            request.session.flush()
             form = QueryForm(request.POST)
             dateFrom = form['dateFrom'].value()
             dateTo = form['dateTo'].value()
