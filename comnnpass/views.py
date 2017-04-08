@@ -86,7 +86,7 @@ def search(request):
         request.session.setdefault('results',resultsReverse)
 
     res = request.session['results']
-    print(res)
+    request.session.setdefault('results',res)
     paginator = Paginator(res,15)
     page = request.GET.get('page')
     try:
