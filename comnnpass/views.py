@@ -84,6 +84,13 @@ def search(request):
         request.session.setdefault('results',resultsReverse)
         request.session.modified = True
 
+    print('results' in request.session)
+    if 'results' in request.session:
+        pass
+    else:
+        msg = 'KeyError'
+        return render(request,'search.html',{'error':msg})
+
     res = request.session['results']
 
     request.session['results'] = res

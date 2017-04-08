@@ -13,6 +13,11 @@
     <strong>Oops!</strong>: 指定したキーワードを含むイベントが見つかりませんでした
   </div>
   {% endif %}
+  {% if error == 'KeyError' %}
+  <div class="bg-warning text-white">
+    <strong>Error!</strong>: KeyError
+  </div>
+  {% endif %}
 </div>
 {% endif %}
 {% endblock error %}
