@@ -87,6 +87,10 @@ def search(request):
         request.session.modified = True
 
     res = request.session['results']
+
+    request.session.setdefault('results',res)
+    request.session.modified = True
+
     paginator = Paginator(res,15)
     page = request.GET.get('page')
     try:
