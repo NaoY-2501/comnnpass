@@ -8,6 +8,11 @@
     <strong>Warning!</strong>: 日付(from)が日付(to)より未来に設定されています
   </div>
   {% endif %}
+  {% if error == 'dateFormatError' %}
+  <div class="bg-warning text-white">
+    <strong>Warning!</strong>: 日付の形式が不正です
+  </div>
+  {% endif %}
   {% if error == 'noResult' %}
   <div class="bg-info text-white">
     <strong>Oops!</strong>: 指定したキーワードを含むイベントが見つかりませんでした

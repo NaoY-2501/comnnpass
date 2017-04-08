@@ -22,7 +22,6 @@ def search(request):
             dateFrom = form['dateFrom'].value()
             dateTo = form['dateTo'].value()
             keyword = form['keyword'].value()
-
             # 日付(from)が日付(To)より未来の場合, 結果を返さず
             # 検索画面へ遷移する
             if dateFrom > dateTo:
@@ -31,6 +30,8 @@ def search(request):
             else:
                 # 検索対象の年月日を取得する
                 ymd = dateComplete(dateFrom,dateTo)
+                if type(ymd) == str:
+                    return render(request,'search.html',{'error':ymd})
 
             if form['searchType'].value() == 'and':
                 payload={'ymd':ymd,'keyword':keyword,'count':'100','order':'2'}
@@ -119,6 +120,10 @@ def dateComplete(dateFrom,dateTo):
     # Connpass APIの日付仕様に合わせて/を削除
     dateFrom = dateFrom.replace('/','')
     dateTo = dateTo.replace('/','')
+
+    if len(dateFrom) < 8 or len(dateTo) < 8:
+        msg = 'dateFormatError'
+        return msg
 
     d_from = datetime.datetime.strptime(dateFrom,'%Y%m%d')
     d_to = datetime.datetime.strptime(dateTo,'%Y%m%d')
