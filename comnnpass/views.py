@@ -14,8 +14,6 @@ def top(request):
 
 # 検索処理・検索結果を返す
 def search(request):
-    if len (request.POST.dict()) < 1:
-        print(request.session['results'])
     if len(request.POST.dict()) > 0:
         if request.method == 'POST':
             form = QueryForm(request.POST)
