@@ -84,9 +84,9 @@ def search(request):
         # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
         resultsReverse = resultList[::-1]
         request.session.setdefault('results',resultsReverse)
+        request.session.modified = True
 
     res = request.session['results']
-    request.session.setdefault('results',res)
     paginator = Paginator(res,15)
     page = request.GET.get('page')
     try:
