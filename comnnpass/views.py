@@ -107,6 +107,7 @@ def search(request):
         results = paginator.page(1)
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
+    print("before return:",request.session.session_key)
     return render(request,'results.html',{'results':results})
 
 # 入力された2つの日付の間を補完する
