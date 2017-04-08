@@ -16,8 +16,6 @@ def top(request):
 
 # 検索処理・検索結果を返す
 def search(request):
-    if request.session.session_key is None:
-        request.session.save()
     if len(request.POST.dict()) > 0:
         if request.method == 'POST':
             form = QueryForm(request.POST)
@@ -85,14 +83,14 @@ def search(request):
 
         # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
         resultsReverse = resultList[::-1]
+        if request.session.session_key is None:
+            request.session.save()
         key = request.session.session_key
         print("session_key:",key)
         request.session[key] = resultsReverse
         request.session.modified = True
 
     try:
-        if request.session.session_key is None:
-            request.session.save()
         key = request.session.session_key
         print("session_key(in try):",key)
         res = request.session[key]
