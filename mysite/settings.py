@@ -63,16 +63,19 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-CACHES={
-    'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-        'OPTIONS': {
-                    'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-                    'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-            }
+try:
+    from.local_settings import *
+except ImportError:
+    CACHES={
+        'default': {
+            'BACKEND': 'django_bmemcached.memcached.BMemcached',
+            'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+            'OPTIONS': {
+                        'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+                        'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+                }
+        }
     }
-}
 
 ROOT_URLCONF = 'mysite.urls'
 
