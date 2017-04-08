@@ -93,6 +93,7 @@ def search(request):
     try:
         key = request.session.session_key
         print("session_key(in try):",key)
+        print(key in request.session)
         res = request.session[key]
         # request.session[key] = res
     except KeyError:
