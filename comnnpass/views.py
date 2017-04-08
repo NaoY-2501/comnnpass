@@ -90,8 +90,8 @@ def search(request):
 
     try:
         key = request.session.session_key
-        print(key)
         res = request.session[key]
+        request.session[key] = res
     except KeyError:
         tb = sys.exc_info()[2]
         print(traceback.print_tb(tb))
