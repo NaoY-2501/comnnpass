@@ -88,7 +88,7 @@ def search(request):
     try:
         res = request.session['results']
     except KeyError:
-        tb = sys.exc_info[2]
+        tb = sys.exc_info()[2]
         print(traceback.print_tb(tb))
         msg = 'KeyError'
         return render(request,'search.html',{'error':msg})
