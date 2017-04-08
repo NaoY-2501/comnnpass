@@ -82,19 +82,19 @@ def search(request):
 
         # 検索結果は開催日降順で返ってくるので,要素の逆順にすることで開催日昇順にする
         resultsReverse = resultList[::-1]
-        request.session.setdefault('results',resultsReverse)
+        request.session['results'] = resultsReverse
+        # request.session.setdefault('results',resultsReverse)
         request.session.modified = True
 
     try:
         res = request.session['results']
+        request.session['results'] = res
+        request.session.modified = True
     except KeyError:
         tb = sys.exc_info()[2]
         print(traceback.print_tb(tb))
         msg = 'KeyError'
         return render(request,'search.html',{'error':msg})
-
-    request.session['results'] = res
-    request.session.modified = True
 
     paginator = Paginator(res,15)
     page = request.GET.get('page')
