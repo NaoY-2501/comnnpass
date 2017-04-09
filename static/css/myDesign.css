@@ -11,6 +11,11 @@ a.logo:visited{color: #fc433a;}
 a.logo:hover{color: #fc433a;}
 a.logo:active{color: #fc433a;}
 
+.title{
+  margin-top: 1.0em;
+  margin-bottom: 1.0em;
+}
+
 .card{
   height: 27.5em;
 }
