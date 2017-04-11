@@ -14,10 +14,15 @@ a.logo:active{color: #fc433a;}
 .title{
   margin-top: 1.0em;
   margin-bottom: 1.0em;
+  margin-left: 1.0em;
+}
+
+.form-inline{
+  margin-left: 1.0em;
 }
 
 .card{
-  height: 27.5em;
+  height: 29.0em;
 }
 
 .card-title{
@@ -26,10 +31,12 @@ a.logo:active{color: #fc433a;}
 
 .card-subtitle{
   font-size:  0.9em;
+  margin-bottom: 3.0em;
 }
 
 .list-group-item{
-  font-size: 0.9em;
+  font-size: 0.8em;
+  height: 4.5em;
 }
 
 .bg-warning{
