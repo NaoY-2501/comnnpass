@@ -16,7 +16,7 @@
 
           <h3 class="h5 card-text">
             <br />
-            {% if result.limit > 0 %}
+            {% if result.limit >= 0 %}
               <h6><span class="badge badge-primary">参加</span> {{ result.accepted}} <span class="badge badge-primary">定員</span> {{ result.limit }} <span class="badge badge-warning">補欠</span> {{ result.waiting }}</h6>
             {% else %}
               {{ result.accepted }}
@@ -25,14 +25,13 @@
                 <div class="progress-bar bg-success" role="progressbar" style="width: {{ result.fullRate }}%; height: 20px;" aria-valuenow="{{ result.fullRate }}" aria-valuemin="0" aria-valuemax="100" /></div>
             </div>
           </h5>
-
+        </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ result.address }}</li>
             <li class="list-group-item">{{ result.place }}</li>
             <li class="list-group-item">{{ result.start }} - {{ result.end }}</li>
           </ul>
 
-        </div>
       </div>
       </div>
       {% endfor %}
