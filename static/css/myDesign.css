@@ -21,6 +21,14 @@ a.logo:active{color: #fc433a;}
   margin-left: 1.0em;
 }
 
+input.dateInput{
+  width: 7.0em;
+}
+
+input.keywordInput{
+  width: 13.5em;
+}
+
 .card{
   height: 29.0em;
 }
