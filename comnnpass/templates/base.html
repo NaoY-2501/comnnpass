@@ -44,6 +44,10 @@
     </div>
   </div>
 
+ </div>
+
+
+  <div class="container">
   <!-- 検索部分 -->
   {% if results %}
   {# 検索結果の1件目のみを使って,現在の検索条件を初期値として代入する #}
@@ -104,18 +108,23 @@
   </div>
   {% endif %}
   <!-- 検索部分 -->
+  </div>
 
+  <div class="container">
   <!-- エラー部分 -->
   {% block error %}
   {% endblock %}
   <!-- エラー部分 -->
+  </div>
 
+  <div class="container">
   <!-- 検索結果部分 -->
   {% block result %}
   {% endblock %}
   <!-- 検索結果部分 -->
+  </div>
 
-</div>
+<!-- </div> -->
 
 </body>
 </html>
