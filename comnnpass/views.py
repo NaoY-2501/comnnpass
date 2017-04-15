@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+# from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.backends.cache import SessionStore
 from .forms import QueryForm
 from .models import Result
@@ -89,17 +90,15 @@ def search(request):
         if request.session.session_key is None:
             request.session.save()
         key = request.session.session_key
-        print("session_key:",key)
+        # print("session_key:",key)
         request.session.setdefault(key,resultsReverse)
-        # request.session[key] = resultsReverse
         request.session.modified = True
 
     try:
         key = request.session.session_key
-        print("session_key(in try):",key)
-        print(key in request.session)
+        # print("session_key(in try):",key)
+        # print(key in request.session)
         res = request.session[key]
-        # request.session[key] = res
     except KeyError:
         tb = sys.exc_info()[2]
         print(traceback.print_tb(tb))
