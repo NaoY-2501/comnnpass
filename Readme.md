@@ -8,4 +8,8 @@
 
 ### What's this?
 
-* IT勉強会支援プラットフォームconnpassが提供するAPIを用いた, 勉強会検索Webサービスです.
+* IT勉強会支援プラットフォーム[connpass](https://connpass.com/)が提供するAPIを用いた, 勉強会検索Webサービスです.
+
+* [co[m|nn]pass](http://conmmpass.herokuapp.com/)
+
+* バグなどありましたらTwitterでのmentionあるいはissuesでお願い致します.
