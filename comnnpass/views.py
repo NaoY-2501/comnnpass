@@ -90,14 +90,11 @@ def search(request):
         if request.session.session_key is None:
             request.session.save()
         key = request.session.session_key
-        # print("session_key:",key)
         request.session.setdefault(key,resultsReverse)
         request.session.modified = True
 
     try:
         key = request.session.session_key
-        # print("session_key(in try):",key)
-        # print(key in request.session)
         res = request.session[key]
     except KeyError:
         tb = sys.exc_info()[2]
@@ -168,8 +165,8 @@ class ConnpassAPI:
         eventInfo = pd.DataFrame()
         iterate = math.ceil(available/100)
         for each in range(iterate):
-            if each > 1:
-                self.payload['start'] = (iterate*100)+1
+            if each > 0:
+                self.payload['start'] = (each*100)+1
                 df = pd.DataFrame.from_dict(self.__fetch())
                 eventInfo = pd.concat([eventInfo,df],ignore_index=True)
             else:
