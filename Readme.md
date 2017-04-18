@@ -12,4 +12,6 @@
 
 * [co[m|nn]pass](http://comnnpass.herokuapp.com/)
 
+* みんなのPython勉強会 \#23でのLT　[(およそ)2週間でWebアプリを作ってみた話](https://www.slideshare.net/NaoY-2501/stapy23-lt)
+
 * バグなどありましたらTwitterでのmentionあるいはissuesでお願い致します.
